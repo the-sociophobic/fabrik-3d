@@ -4,8 +4,8 @@ import { Stats } from '@react-three/drei'
 
 import CameraControls from './units/CameraControls'
 import Lighting from './units/Lighting'
-import Floor from './units/Floor'
 import Boxes from './units/Boxes'
+import Gizmo from './units/Gizmo'
 
 
 
@@ -16,8 +16,8 @@ const Scene: React.FC = () => {
       <Stats />
       <CameraControls />
       <Lighting />
-      <Floor />
       <Boxes />
+      {/* <Gizmo /> */}
     </Canvas>
   )
 }
