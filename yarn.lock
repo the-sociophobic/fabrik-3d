@@ -9260,6 +9260,13 @@ thenify-all@^1.0.0:
   dependencies:
     any-promise "^1.0.0"
 
+three-instanced-uniforms-mesh@^0.49.0:
+  version "0.49.0"
+  resolved "https://registry.yarnpkg.com/three-instanced-uniforms-mesh/-/three-instanced-uniforms-mesh-0.49.0.tgz#4ab246e5c485782a071a92cef60f9f7aae00201f"
+  integrity sha512-vXVbKazsNW5H+NtrDLKPoQeNq9tdU/vO+xIOZ4H572gIRrSpsU+lzXWkxYc7JTB30iTJba2XWKYtr1efaisDmw==
+  dependencies:
+    troika-three-utils "^0.49.0"
+
 three-mesh-bvh@^0.6.7:
   version "0.6.8"
   resolved "https://registry.yarnpkg.com/three-mesh-bvh/-/three-mesh-bvh-0.6.8.tgz#f27d18ca75bdc59316dff0f561af8fb316621a54"
@@ -9359,6 +9366,11 @@ troika-three-utils@^0.47.2:
   version "0.47.2"
   resolved "https://registry.yarnpkg.com/troika-three-utils/-/troika-three-utils-0.47.2.tgz#af49ca694245dce631963d5fefe4e8e1b8af9044"
   integrity sha512-/28plhCxfKtH7MSxEGx8e3b/OXU5A0xlwl+Sbdp0H8FXUHKZDoksduEKmjQayXYtxAyuUiCRunYIv/8Vi7aiyg==
+
+troika-three-utils@^0.49.0:
+  version "0.49.0"
+  resolved "https://registry.yarnpkg.com/troika-three-utils/-/troika-three-utils-0.49.0.tgz#3fbdbf8783740ce3c1f7acac642e7e957ea4f090"
+  integrity sha512-umitFL4cT+Fm/uONmaQEq4oZlyRHWwVClaS6ZrdcueRvwc2w+cpNQ47LlJKJswpqtMFWbEhOLy0TekmcPZOdYA==
 
 troika-worker-utils@^0.47.2:
   version "0.47.2"

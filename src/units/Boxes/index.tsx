@@ -1,10 +1,20 @@
 import { useRef, useEffect } from 'react'
 import * as THREE from 'three'
-import { ThreeEvent } from '@react-three/fiber'
+import { ThreeEvent, useLoader, extend, Object3DNode } from '@react-three/fiber'
 import type { OrbitControls as OrbitControlsType } from 'three-stdlib'
+import { InstancedUniformsMesh } from 'three-instanced-uniforms-mesh'
 
 import sphericalIterator from './sphericalIterator'
 import { LowerPartGeometry, UpperPartGeometry } from './geometries'
+import { fragmentShader, vertexShader } from './shaders'
+
+
+extend({ InstancedUniformsMesh })
+declare module '@react-three/fiber' {
+  interface ThreeElements {
+    instancedUniformsMesh: Object3DNode<InstancedUniformsMesh<any>, typeof InstancedUniformsMesh>
+  }
+}
 
 
 const tmpObject = new THREE.Object3D()
@@ -29,13 +39,23 @@ const Boxes: React.FC<BoxesProps> = ({
   controlsRef
 }) => {
   const boxesRef = useRef<THREE.InstancedMesh>(null)
-  const planesRef = useRef<THREE.InstancedMesh>(null)
+  const planesRef = useRef<InstancedUniformsMesh<any>>(null)
+  const uvOffsets: number[][] = new Array(amount)
+    .fill([0, 0]).map((value, i) => {
+      const numberOfTile = i % 16
+
+      return [
+        numberOfTile % 4 * .25,
+        Math.floor(numberOfTile / 4) * .25
+      ]
+    })
 
   useEffect(() => {
     const boxesRender = boxesRef.current
     const planesRender = planesRef.current
 
     if (boxesRender && planesRender) {
+
       sphericalIterator({
         amount,
         containerRadius,
@@ -58,8 +78,8 @@ const Boxes: React.FC<BoxesProps> = ({
             Math.random() * 1
           )
           boxesRender.setColorAt(currentBox, tmpColor)
-          tmpColor.set(1, 1, 1)
-          planesRender.setColorAt(currentBox, tmpColor)
+
+          planesRender.setUniformAt('uvOffset', currentBox, new THREE.Vector2(...uvOffsets[currentBox]))
         }
       })
 
@@ -93,7 +113,7 @@ const Boxes: React.FC<BoxesProps> = ({
     const newCameraPos = new THREE.Vector3()
       .copy(targetPos)
       .add(cameraOffset)
-    
+
     controlsRef.current.target.copy(targetPos)
     controlsRef.current.object.position.copy(newCameraPos)
   }
@@ -109,14 +129,25 @@ const Boxes: React.FC<BoxesProps> = ({
         <meshStandardMaterial />
       </instancedMesh>
 
-      <instancedMesh
+      <instancedUniformsMesh
         ref={planesRef}
-        args={[undefined, undefined, amount]}
+        args={[new THREE.BufferGeometry(), undefined, amount]}
         onDoubleClick={onClick}
       >
         <UpperPartGeometry />
-        <meshStandardMaterial />
-      </instancedMesh>
+        <shaderMaterial
+          fragmentShader={fragmentShader}
+          vertexShader={vertexShader}
+          uniforms={{
+            texture1: {
+              value: useLoader(THREE.TextureLoader, './fabrik-3d/img/texture.png')
+            },
+            uvOffset: {
+              value: [0, 0]
+            }
+          }}
+        />
+      </instancedUniformsMesh>
     </>
   )
 }
