@@ -123,7 +123,7 @@ const Boxes: React.FC<BoxesProps> = ({
       <instancedMesh
         ref={boxesRef}
         args={[undefined, undefined, amount]}
-        onDoubleClick={onClick}
+        // onDoubleClick={onClick}
       >
         <LowerPartGeometry />
         <meshStandardMaterial />
