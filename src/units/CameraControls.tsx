@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { OrbitControls } from '@react-three/drei'
 import { Camera, Raycaster, Vector2, Vector3 } from 'three'
 import type { OrbitControls as OrbitControlsType } from 'three-stdlib'
@@ -6,6 +6,7 @@ import { useThree } from '@react-three/fiber'
 import { debounce } from 'lodash'
 
 import { useVector3Animation } from '../app/animation'
+import { HiddenNodesContext } from '../app/html-render/HiddenNodesContext'
 
 
 export type CameraControlsProps = {
@@ -66,19 +67,28 @@ const CameraControls: React.FC<CameraControlsProps> = ({
     const blockPos = raycaster.ray.origin.clone().add(raycaster.ray.direction.clone().normalize().multiplyScalar(intersection.distance))
     const animDuration = Math.round(Math.sqrt(intersection.distance / 4) * 250)
 
-    setTransitionPos(blockPos.clone().add(new Vector3(0, 4, 1)), animDuration, 'linear')
+    setTransitionPos(blockPos.clone().add(new Vector3(0, 7, .1)), animDuration, 'linear')
     playPos()
     setTransitionTarget(blockPos, animDuration, 'easeIn')
     playTarget()
   }
 
+  const { setTextureOpened } = useContext(HiddenNodesContext)
+  const openTexture = () => setTimeout(() => setTextureOpened(true), 500)
+
   useEffect(() => {
     window.addEventListener('pointermove', onPointerMove)
+
     window.addEventListener('dblclick', moveCameraTo)
+    window.addEventListener('dblclick', openTexture)
+    // window.addEventListener('dblclick', openTexture)
 
     return () => {
       window.removeEventListener('pointermove', onPointerMove)
+
       window.removeEventListener('dblclick', moveCameraTo)
+      window.removeEventListener('dblclick', openTexture)
+      // window.removeEventListener('dblclick', openTexture)
     }
   }, [])
   // END OF: MOVE CAMERA TO BLOCK FUNCTIONALITY

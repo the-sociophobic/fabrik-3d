@@ -4,12 +4,18 @@ import { FC, createContext, useState, ReactNode } from 'react'
 export type HiddenNodesContextType = {
   sites: ReactNode[]
   addHiddenNode: (addedHiddenNode: ReactNode) => void
+
+  textureOpened: boolean
+  setTextureOpened: (_textureOpened: boolean) => void
 }
 
 
 const HiddenNodesContextInitialState = {
   sites: [],
-  addHiddenNode: (addedHiddenNode: ReactNode) => { }
+  addHiddenNode: (addedHiddenNode: ReactNode) => { },
+
+  textureOpened: false,
+  setTextureOpened: (_textureOpened: boolean) => { },
 }
 
 export const HiddenNodesContext = createContext<HiddenNodesContextType>(HiddenNodesContextInitialState)
@@ -29,10 +35,14 @@ export const HiddenNodesContextProvider: FC<HiddenNodesContextProviderProps> = (
       addedHiddenNode
     ])
 
+  const [textureOpened, setTextureOpened] = useState(false)
+
   return (
     <HiddenNodesContext.Provider value={{
       sites,
-      addHiddenNode
+      addHiddenNode,
+      textureOpened,
+      setTextureOpened
     }}>
       {sites}
       {children}

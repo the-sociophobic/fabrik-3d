@@ -134,7 +134,7 @@ const Boxes: React.FC<BoxesProps> = ({
       <instancedUniformsMesh
         ref={planesRef}
         args={[new THREE.BufferGeometry(), undefined, amount]}
-        onDoubleClick={onClick}
+        // onDoubleClick={onClick}
       >
         {/* <UpperPartGeometry /> */}
         <PlaneGeometry />

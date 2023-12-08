@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, cloneElement } from 'react'
+import { useContext, useEffect, useRef, cloneElement, FC } from 'react'
 
 import { HiddenNodesContext } from './HiddenNodesContext'
 
@@ -18,15 +18,62 @@ const useHiddenNode = ({
 
   useEffect(() => {
     addHiddenNode(
+      <HiddenNode hiddenSiteRef={hiddenSiteRef}>
+        {node}
+      </HiddenNode>
+    )
+  }, [])
+
+  return hiddenSiteRef
+}
+
+
+export type HiddenNodeProps = {
+  hiddenSiteRef: any
+  children: React.ReactNode
+}
+
+
+const HiddenNode: FC<HiddenNodeProps> = ({
+  hiddenSiteRef,
+  children
+}) => {
+  const { textureOpened, setTextureOpened } = useContext(HiddenNodesContext)
+
+  return (
+    <div style={textureOpened ? {
+      width: '100vw',
+      height: '100vh',
+      position: 'fixed',
+      zIndex: 1000,
+    } : {
+      width: 0,
+      height: 0,
+      overflow: 'hidden',
+      position: 'fixed',
+    }
+    }>
+      <div
+        onClick={() => setTextureOpened(false)}
+        style={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          width: '100%',
+          height: '100%',
+          cursor: 'pointer',
+          backgroundColor: 'rgba(0, 0, 0, .5)'
+        }}
+      />
       <div style={{
-        // width: 0,
-        // height: 0,
         overflow: 'hidden',
         width: `${512 / 2}px`,
         height: `${512 / 2}px`,
 
-        zIndex: 1000,
-        position: 'fixed'
+        position: 'absolute',
+        top: '50%',
+        right: '50%',
+        transform: 'translate(50%, -50%)'
       }}>
         <div
           ref={hiddenSiteRef}
@@ -36,14 +83,11 @@ const useHiddenNode = ({
             backgroundColor: 'white'
           }}
         >
-          {cloneElement(node as any, { onLoad })}
+          {children}
         </div>
       </div>
-    )
-    // onLoad?.()
-  }, [])
-
-  return hiddenSiteRef
+    </div>
+  )
 }
 
 
