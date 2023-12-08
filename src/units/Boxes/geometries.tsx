@@ -70,8 +70,44 @@ const UpperPartGeometry = () =>
     />
   </bufferGeometry>
 
+const PlaneGeometry = () =>
+  <bufferGeometry>
+    <bufferAttribute
+      attach='attributes-position'
+      array={new Float32Array([
+         .5, .5,  .5,
+         .5, .5, -.5,
+        -.5, .5, -.5,
+        -.5, .5,  .5,
+      ])}
+      count={4}
+      itemSize={3}
+    />
+    <bufferAttribute
+      attach='index'
+      array={new Uint16Array([
+        0, 1, 2,
+        0, 2, 3,
+      ])}
+      count={6}
+      itemSize={1}
+    />
+    <bufferAttribute
+      attach='attributes-uv'
+      array={new Float32Array([
+        0, 1,
+        1, 1,
+        1, 0,
+        0, 0,
+      ])}
+      count={4}
+      itemSize={2}
+    />
+  </bufferGeometry>
+
 
 export {
   LowerPartGeometry,
-  UpperPartGeometry
+  UpperPartGeometry,
+  PlaneGeometry
 }

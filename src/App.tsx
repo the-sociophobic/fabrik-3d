@@ -1,11 +1,14 @@
 import Scene from './Scene'
+import { HiddenNodesContextProvider } from './app/html-render/HiddenNodesContext'
 
 
 function App() {
   return (
-    <div className='App'>
-      <Scene />
-    </div>
+    <HiddenNodesContextProvider>
+      <div className='App'>
+        <Scene />
+      </div>
+    </HiddenNodesContextProvider>
   )
 }
 

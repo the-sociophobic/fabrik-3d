@@ -7,6 +7,7 @@ import CameraControls from './units/CameraControls'
 import Lighting from './units/Lighting'
 import Boxes from './units/Boxes'
 import Gizmo from './units/Gizmo'
+import SitePlane from './app/html-render'
 
 
 
@@ -19,14 +20,15 @@ const Scene: React.FC = () => {
       <Stats />
       <CameraControls _ref={controlsRef} />
       <Lighting />
-      <Boxes
+      {/* <Boxes
         amount={10000}
         minBoxHeight={1}
         maxBoxHeight={6}
         containerRadius={195}
         controlsRef={controlsRef}
-      />
+      /> */}
       {/* <Gizmo /> */}
+      <SitePlane />
     </Canvas>
   )
 }
