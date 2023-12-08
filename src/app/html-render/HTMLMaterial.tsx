@@ -4,6 +4,7 @@ import * as THREE from 'three'
 import { toPixelData } from 'html-to-image'
 
 import useHiddenNode from './useHiddenNode'
+import { useFrame } from '@react-three/fiber'
 
 
 export type HTMLMaterial = {
@@ -18,18 +19,15 @@ const HTMLMaterial: FC<HTMLMaterial> = ({
   height = 512,
   children
 }) => {
-  const [readyForSnapshot, setReadyForSnapshot] = useState(false)
   const siteRef = useHiddenNode({
     node: children,
     onLoad: () => {
-      setTimeout(() => {
-        setReadyForSnapshot(true)
-      }, 100)
     }
   })
+
   const [texture, setTexture] = useState<THREE.DataTexture | null>(null)
 
-  useEffect(() => {
+  useFrame(() => {
     if (!siteRef.current)
       return
 
@@ -45,7 +43,8 @@ const HTMLMaterial: FC<HTMLMaterial> = ({
       .catch(function (error) {
         console.error('oops, something went wrong!', error)
       })
-  }, [readyForSnapshot])
+  })
+  
 
   return !texture ? <></> : (
     <meshStandardMaterial

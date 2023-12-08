@@ -5,8 +5,10 @@ import type { OrbitControls as OrbitControlsType } from 'three-stdlib'
 import { InstancedUniformsMesh } from 'three-instanced-uniforms-mesh'
 
 import sphericalIterator from './sphericalIterator'
-import { LowerPartGeometry, UpperPartGeometry } from './geometries'
+import { LowerPartGeometry, PlaneGeometry, UpperPartGeometry } from './geometries'
 import { fragmentShader, vertexShader } from './shaders'
+import HTMLMaterial from '../../app/html-render/HTMLMaterial'
+import TestHTML from '../../app/html-render/TestHTML'
 
 
 extend({ InstancedUniformsMesh })
@@ -123,7 +125,7 @@ const Boxes: React.FC<BoxesProps> = ({
       <instancedMesh
         ref={boxesRef}
         args={[undefined, undefined, amount]}
-        // onDoubleClick={onClick}
+      // onDoubleClick={onClick}
       >
         <LowerPartGeometry />
         <meshStandardMaterial />
@@ -134,8 +136,9 @@ const Boxes: React.FC<BoxesProps> = ({
         args={[new THREE.BufferGeometry(), undefined, amount]}
         onDoubleClick={onClick}
       >
-        <UpperPartGeometry />
-        <shaderMaterial
+        {/* <UpperPartGeometry /> */}
+        <PlaneGeometry />
+        {/* <shaderMaterial
           fragmentShader={fragmentShader}
           vertexShader={vertexShader}
           uniforms={{
@@ -146,7 +149,11 @@ const Boxes: React.FC<BoxesProps> = ({
               value: [0, 0]
             }
           }}
-        />
+        /> */}
+        <HTMLMaterial>
+          <TestHTML />
+        </HTMLMaterial>
+
       </instancedUniformsMesh>
     </>
   )

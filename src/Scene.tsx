@@ -20,15 +20,15 @@ const Scene: React.FC = () => {
       <Stats />
       <CameraControls _ref={controlsRef} />
       <Lighting />
-      {/* <Boxes
-        amount={10000}
+      <Boxes
+        amount={100}
         minBoxHeight={1}
         maxBoxHeight={6}
-        containerRadius={195}
+        containerRadius={35}
         controlsRef={controlsRef}
-      /> */}
+      />
       {/* <Gizmo /> */}
-      <SitePlane />
+      {/* <SitePlane /> */}
     </Canvas>
   )
 }

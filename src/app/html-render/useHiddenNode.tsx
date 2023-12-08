@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef, cloneElement } from 'react'
 
 import { HiddenNodesContext } from './HiddenNodesContext'
 
@@ -19,9 +19,12 @@ const useHiddenNode = ({
   useEffect(() => {
     addHiddenNode(
       <div style={{
-        width: 0,
-        height: 0,
-        // overflow: 'hidden'
+        // width: 0,
+        // height: 0,
+        overflow: 'hidden',
+        width: `${512 / 2}px`,
+        height: `${512 / 2}px`,
+
         zIndex: 1000,
         position: 'fixed'
       }}>
@@ -33,11 +36,11 @@ const useHiddenNode = ({
             backgroundColor: 'white'
           }}
         >
-          {node}
+          {cloneElement(node as any, { onLoad })}
         </div>
       </div>
     )
-    onLoad?.()
+    // onLoad?.()
   }, [])
 
   return hiddenSiteRef
