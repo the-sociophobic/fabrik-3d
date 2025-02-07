@@ -7,8 +7,8 @@ import { InstancedUniformsMesh } from 'three-instanced-uniforms-mesh'
 import sphericalIterator from './sphericalIterator'
 import { LowerPartGeometry, PlaneGeometry, UpperPartGeometry } from './geometries'
 import { fragmentShader, vertexShader } from './shaders'
-import HTMLMaterial from '../../app/html-render/HTMLMaterial'
-import TestHTML from '../../app/html-render/TestHTML'
+import HTMLMaterial from '../../app/html-material/HTMLMaterial'
+import TestHTML from '../../app/html-material/TestHTML'
 
 
 extend({ InstancedUniformsMesh })

@@ -1,5 +1,5 @@
 import Scene from './Scene'
-import { HiddenNodesContextProvider } from './app/html-render/HiddenNodesContext'
+import { HiddenNodesContextProvider } from './app/html-material/HiddenNodesContext'
 
 
 function App() {

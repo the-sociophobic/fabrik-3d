@@ -6,7 +6,7 @@ import { useThree } from '@react-three/fiber'
 import { debounce } from 'lodash'
 
 import { useVector3Animation } from '../app/animation'
-import { HiddenNodesContext } from '../app/html-render/HiddenNodesContext'
+import { HiddenNodesContext } from '../app/html-material/HiddenNodesContext'
 
 
 export type CameraControlsProps = {
